@@ -19,20 +19,22 @@ function saveToLocalStorage(event) {
         document.body.innerHTML = document.body.innerHTML + "<h4> Something Went Wrong </h4>"
         console.log(err)
     })
-   // localStorage.setItem(obj.email, JSON.stringify(obj))
-    //showNewUserOnScreen(obj)
+  
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    const localStorageObj = localStorage;
-    const localstoragekeys  = Object.keys(localStorageObj)
+    axios.get("https://crudcrud.com/api/73bbc8fc45d44ca49a938c9ab446b66b/appointmentData")
+    .then((response) => {
+        console.log(response)
 
-    for(var i =0; i< localstoragekeys.length; i++){
-        const key = localstoragekeys[i]
-        const userDetailsString = localStorageObj[key];
-        const userDetailsObj = JSON.parse(userDetailsString);
-        showNewUserOnScreen(userDetailsObj)
-    }
+        for(var i=0; i< response.data.length; i++){
+            showNewUserOnScreen(response.data[i])
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+  
 })
 
 function showNewUserOnScreen(user){
