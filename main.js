@@ -10,7 +10,7 @@ function saveToLocalStorage(event) {
         phonenumber
     }
 
-    axios.post("https://crudcrud.com/api/73bbc8fc45d44ca49a938c9ab446b66b/appointmentData",obj)
+    axios.post("https://crudcrud.com/api/1d97c998952c48eb8e65b8f3847db66b/appointmentData",obj)
     .then((response) => {
         showNewUserOnScreen(response.data)
         //console.log(response)
@@ -23,7 +23,7 @@ function saveToLocalStorage(event) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    axios.get("https://crudcrud.com/api/73bbc8fc45d44ca49a938c9ab446b66b/appointmentData")
+    axios.get("https://crudcrud.com/api/1d97c998952c48eb8e65b8f3847db66b/appointmentData")
     .then((response) => {
         console.log(response)
 
@@ -49,7 +49,7 @@ function showNewUserOnScreen(user){
     const parentNode = document.getElementById('listOfUsers');
     const childHTML = `<li id=${user._id}> ${user.name} - ${user.email}
                             <button onclick=deleteUser('${user._id}')> Delete User </button>
-                            <button onclick=editUserDetails('${user.id}','${user.name}','${user.phonenumber}')>Edit User </button>
+                            <button onclick=editUserDetails('${user.email}','${user.name}','${user.phonenumber}','${user._id}')>Edit User </button>
                          </li>`
 
     parentNode.innerHTML = parentNode.innerHTML + childHTML;
@@ -57,19 +57,19 @@ function showNewUserOnScreen(user){
 
 
 
-function editUserDetails(emailId, name, phonenumber){
+function editUserDetails(emailId, name, phonenumber, userId){
 
     document.getElementById('email').value = emailId;
     document.getElementById('username').value = name;
     document.getElementById('phonenumber').value =phonenumber;
 
-    deleteUser(emailId)
+    deleteUser(userId)
  }
 
 
 
 function deleteUser(userId){
-    axios.delete(`https://crudcrud.com/api/73bbc8fc45d44ca49a938c9ab446b66b/appointmentData/${userId}`)
+    axios.delete(`https://crudcrud.com/api/1d97c998952c48eb8e65b8f3847db66b/appointmentData/${userId}`)
         .then((response) => {
             removeUserFromScreen(userId)
         })
